@@ -6,12 +6,30 @@ import axios from '../axios'
 export default function Home() {
  
   const [url,setUrl]=useState("")
+const [insights,setInsights]=useState([{
+  _id:Date.now(),
+  url:"abcd.com",
+  wordCount:10,
+  favorite:false
+},{
+  _id:Date.now(),
+  url:"abcd.com",
+  wordCount:10,
+  favorite:true
+}])
+
+useEffect(()=>{
+  axios.get('/posts/get/insights').then((response)=>{
+    setInsights(response.data)
+  }).catch(err=>console.log(err))
+},[])
 
   const handleSubmit=(e)=>{
     console.log('working perfectly........');
     e.preventDefault()
-    axios.post('/get/insights',url).then((response)=>{
+    axios.post('/posts/create/insights',url).then((response)=>{
       console.log(response);
+      setInsights([...insights,response.data])
     setUrl("")
     }).catch(err=>console.log(err))
   }
@@ -38,7 +56,7 @@ export default function Home() {
         </form>
       </section>
       <div className='container mt-5'>
-        <table class="table">
+      {insights.length?( <table class="table">
           <thead>
             <tr>
               <th scope="col">Domain Name</th>
@@ -48,17 +66,22 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td><i class="bi bi-heart"></i>
+          
+            {insights.map((i)=>(
+              <tr key={i._id}>
+              <th scope="row">{i.url}</th>
+              <td>{i.wordCount}</td>
+              <td><i className={`bi bi-heart${i.favorite?'-fill':''}`} style={{color:"red"}}></i>
               </td>
-              <td><i class="bi bi-x-octagon-fill"></i>
+              <td><i className="bi bi-x-octagon-fill"></i>
               </td>
             </tr>
+            ))}
+          
             
           </tbody>
         </table>
+         ):<div className='container'><h2>No data found</h2></div>} 
       </div>
     </div>
   )
