@@ -91,6 +91,7 @@ export default function Home() {
             <tr>
               <th scope="col">Domain Name</th>
               <th scope="col">Word Count</th>
+              <th scope="col">Web Links</th>
               <th scope="col">Media Links</th>
               <th scope="col">Favorite</th>
               <th scope="col">Action</th>
@@ -101,6 +102,16 @@ export default function Home() {
               <tr key={i._id}>
                 <th scope="row">{i.url}</th>
                 <td>{i.wordCount}</td>
+                <td>{i.webLinks.map((i, index) => {
+                  if (index < 5) {
+                    return <p>{i}</p>
+                  } else if (index == 6) {
+                    return <p>...</p>
+                  }
+                  else {
+                    return false;
+                  }
+                })}</td>
                 <td>{i.mediaLinks.map((i, index) => {
                   if (index < 5) {
                     return <p>{i}</p>
