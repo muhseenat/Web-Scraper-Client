@@ -83,7 +83,7 @@ export default function Home() {
 
 
       {/* TABLE SECTION START */}
-      <div className='container mt-5'>
+      <div className='container mt-5 '>
         {loading && <div className="spinner-border" role="status">
         </div>}
         {insights.length > 0 && (<table className="table">
