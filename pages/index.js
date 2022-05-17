@@ -86,13 +86,13 @@ export default function Home() {
       <div className='container mt-5 '>
         {loading && <div className="spinner-border" role="status">
         </div>}
-        {insights.length > 0 && (<table className="table">
+        {insights.length > 0 && (<table className="table" style={{maxWidth:"100px"}}>
           <thead>
             <tr>
               <th scope="col">Domain Name</th>
               <th scope="col">Word Count</th>
               <th scope="col">Web Links</th>
-              <th scope="col">Media Links</th>
+              <th scope="col"  >Media Links</th>
               <th scope="col">Favorite</th>
               <th scope="col">Action</th>
             </tr>
@@ -104,9 +104,9 @@ export default function Home() {
                 <td>{i.wordCount}</td>
                 <td>{i.webLinks.map((i, index) => {
                   if (index < 5) {
-                    return <p>{i}</p>
+                    return <p >{i}</p>
                   } else if (index == 6) {
-                    return <p>...</p>
+                    return <p >...</p>
                   }
                   else {
                     return false;
@@ -114,7 +114,7 @@ export default function Home() {
                 })}</td>
                 <td>{i.mediaLinks.map((i, index) => {
                   if (index < 5) {
-                    return <p>{i}</p>
+                    return <p style={{width:"300px",wordWrap:"break-word"}}>{i}</p>
                   } else if (index == 6) {
                     return <p>...</p>
                   }
